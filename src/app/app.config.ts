@@ -3,7 +3,7 @@ import {
   provideBrowserGlobalErrorListeners,
   provideZoneChangeDetection,
 } from "@angular/core";
-import { provideRouter } from "@angular/router";
+import { provideRouter, withHashLocation } from "@angular/router";
 
 import { routes } from "./app.routes";
 import {
@@ -16,10 +16,8 @@ export const appConfig: ApplicationConfig = {
   providers: [
     provideBrowserGlobalErrorListeners(),
     provideZoneChangeDetection({ eventCoalescing: true }),
-    provideRouter(routes),
+    provideRouter(routes, withHashLocation()),
     provideClientHydration(withEventReplay()),
-    // XMLHTTPREQUEST
-    // FETCH
     provideHttpClient(withFetch()),
   ],
 };
