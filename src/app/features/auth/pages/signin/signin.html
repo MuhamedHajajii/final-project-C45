@@ -1,0 +1,75 @@
+<div class="w-full h-screen flex items-center justify-center">
+  <form
+    [formGroup]="singInForm"
+    (ngSubmit)="onSubmit()"
+    class="w-full md:w-2/3 text-shadow-current drop-shadow-2xl border shadow-2xl rounded-lg"
+  >
+    <div class="flex font-bold justify-center mt-6">
+      <img src="/images/freshcart-logo.svg" alt="Fresh Cart" />
+    </div>
+    <h2 class="text-2xl text-center text-gray-800 mb-8 font-bold my-7">
+      Login
+    </h2>
+    <div class="px-12 pb-10">
+      <div class="w-full mb-2">
+        <div class="flex items-center">
+          <input
+            formControlName="email"
+            type="text"
+            placeholder="Email Address"
+            class="w-full border rounded px-3 py-2 text-gray-700 focus:outline-none"
+          />
+        </div>
+      </div>
+      <div class="w-full mb-2">
+        <div class="flex items-center">
+          <input
+            formControlName="password"
+            type="password"
+            placeholder="Password"
+            class="w-full border rounded px-3 py-2 text-gray-700 focus:outline-none"
+          />
+        </div>
+      </div>
+      <button
+        class="w-full py-2 mt-8 rounded-full bg-main-400 cursor-pointer text-gray-100 focus:outline-none"
+      >
+        Login
+      </button>
+
+      @if( (singInForm.get('email')?.errors ||
+      singInForm.get('password')?.errors) && (singInForm.get('email')?.touched
+      ||singInForm.get('password')?.touched) ) {
+      <app-error-message>
+        @if(singInForm.get('email')?.getError('required') ||
+        singInForm.get('password')?.getError('required') ) {
+        <li>All Data is Required</li>
+        } @if(singInForm.get('email')?.getError('email')) {
+        <li>Not Valid Email</li>
+        }
+      </app-error-message>
+      } @if(errorMessage) {
+      <div
+        class="my-4 bg-red-100 border-l-4 border-red-500 text-red-700 p-4"
+        role="alert"
+      >
+        <p class="font-bold">{{ errorMessage }}</p>
+      </div>
+      } @if(successMessage) {
+      <div
+        class="my-4 bg-green-100 border-l-4 border-green-500 text-green-700 p-4"
+        role="alert"
+      >
+        <p class="font-bold">{{ successMessage }}</p>
+      </div>
+      }
+    </div>
+
+    <div>
+      <p class="font-bold text-center p-4">
+        Don't Have An Account?
+        <a routerLink="/signup" class="text-main-500">SignUp</a>
+      </p>
+    </div>
+  </form>
+</div>
