@@ -32,9 +32,12 @@
         </div>
       </div>
       <button
-        class="w-full py-2 mt-8 rounded-full bg-main-400 cursor-pointer text-gray-100 focus:outline-none"
+        [disabled]="isLoading"
+        class="disabled:bg-gray-300 disabled:cursor-auto w-full py-2 mt-8 rounded-full bg-main-400 cursor-pointer text-gray-100 focus:outline-none"
       >
-        Login
+        Login @if(isLoading) {
+        <i class="fas fa-spinner fa-spin"></i>
+        }
       </button>
 
       @if( (singInForm.get('email')?.errors ||

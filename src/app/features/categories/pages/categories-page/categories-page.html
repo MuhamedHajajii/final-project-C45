@@ -1,1 +1,29 @@
-<p>categories-page works!</p>
+@if( !allCategories) {
+<app-loading-spinner />
+} @else {
+<section class="my-4">
+  <app-header-title [title]="'All Categories'" />
+  <div class="grid grid-cols-3 gap-4">
+    @for (cat of allCategories; track $index) {
+    <div class="p-4">
+      <div
+        class="h-full border-2 border-gray-200 border-opacity-60 rounded-lg overflow-hidden"
+      >
+        <img
+          class="lg:h-48 md:h-36 w-full object-contain object-center"
+          [src]="cat.image"
+          [alt]="cat.name"
+        />
+        <div class="p-6">
+          <h2
+            class="tracking-widest text-xs title-font font-medium text-gray-400 mb-1"
+          >
+            {{ cat.name }}
+          </h2>
+        </div>
+      </div>
+    </div>
+    }
+  </div>
+</section>
+}

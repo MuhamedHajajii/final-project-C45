@@ -30,14 +30,20 @@ export class SignupForm implements OnInit {
 
   timer: number = 5;
 
+  isShowPassword: boolean = false;
+
+  togglePassword(): void {
+    this.isShowPassword = !this.isShowPassword;
+  }
+
   ngOnInit(): void {
-    this.registerForm.setValue({
-      name: "Muhamed Haji",
-      email: "muhamedHajajii@gmail.com",
-      password: "Aa1234567849",
-      rePassword: "Aa1234567849",
-      phone: "01002821458",
-    });
+    // this.registerForm.setValue({
+    //   name: "Muhamed Haji",
+    //   email: "muhamedHajajii@gmail.com",
+    //   password: "Aa1234567849",
+    //   rePassword: "Aa1234567849",
+    //   phone: "01002821458",
+    // });
   }
 
   registerForm = new FormGroup(

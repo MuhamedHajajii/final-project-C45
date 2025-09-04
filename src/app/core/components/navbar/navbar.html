@@ -102,6 +102,16 @@
             >Signup</a
           >
         </li>
+        } @if(isLoggedIn) {
+        <li>
+          <button
+            (click)="signOut()"
+            class="block py-2 px-3 text-white rounded-sm dark:text-white"
+            aria-current="page"
+          >
+            Signout
+          </button>
+        </li>
         }
       </ul>
     </div>

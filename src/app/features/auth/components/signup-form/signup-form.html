@@ -2,9 +2,11 @@
   <div class="px-12 pb-10 md:mt-20">
     <!-- (input filed): name -->
     <div class="w-full mb-2">
+      @let userName = registerForm.get('name');
       <div class="flex items-start flex-col">
         <label for="name">User Name</label>
         <input
+          [class.border-red-500]="userName?.errors && userName?.touched"
           id="name"
           type="text"
           formControlName="name"
@@ -13,8 +15,7 @@
         />
       </div>
       <!-- Error Handling -->
-      @let userName = registerForm.get('name'); @if(userName?.errors &&
-      userName?.touched ) {
+      @if(userName?.errors && userName?.touched ) {
       <app-error-message>
         @if(userName?.getError('maxlength')) {
         <li>At least 8 characters (and up to 20 characters)</li>
@@ -59,11 +60,12 @@
         <label for="password">Password</label>
         <input
           id="password"
-          type="password"
+          [type]="isShowPassword ? 'text' : 'password'"
           placeholder="Password"
           formControlName="password"
           class="w-full border rounded px-3 py-2 text-gray-700 focus:outline-none"
         />
+        <span (click)="togglePassword()"> show password </span>
       </div>
       <!-- Error Handling -->
       @let userPassword = registerForm.get('password'); @if(userPassword?.errors

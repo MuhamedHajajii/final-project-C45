@@ -1,0 +1,11 @@
+<app-header-title [title]="'Fresh Cart - Popular Products'" />
+
+@if(!allProducts) {
+<app-loading-spinner />
+} @else {
+<div class="grid grid-cols-3 gap-3">
+  @for(prod of allProducts.slice(0,6); track prod._id) {
+  <app-products-card [prod]="prod" />
+  }
+</div>
+}

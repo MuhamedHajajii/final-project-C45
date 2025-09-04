@@ -1,12 +1,15 @@
 import { Routes } from "@angular/router";
 import { AuthLayout } from "./core/layouts/auth-layout/auth-layout";
 import { MainLayout } from "./core/layouts/main-layout/main-layout";
+import { authGuard } from "./core/guards/auth-guard";
+import { userGuard } from "./core/guards/user-guard";
 
 export const routes: Routes = [
   // Auth Routes ( GUEST )
   {
     path: "",
     component: AuthLayout,
+    canActivate: [userGuard],
     loadChildren: () =>
       import("./features/auth/auth.routes").then((m) => m.AUTH_ROUTES),
   },
@@ -17,6 +20,7 @@ export const routes: Routes = [
   {
     path: "",
     component: MainLayout,
+    canActivate: [authGuard],
     children: [
       {
         path: "home",
@@ -34,6 +38,13 @@ export const routes: Routes = [
           import("./features/products/products.routes").then(
             (m) => m.PRODUCTS_ROUTES
           ),
+      },
+      {
+        path: "details/:productId/:slug",
+        loadComponent: () =>
+          import(
+            "./features/products/pages/products-details/products-details"
+          ).then((m) => m.ProductsDetails),
       },
       {
         path: "categories",
