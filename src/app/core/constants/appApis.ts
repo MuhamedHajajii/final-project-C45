@@ -10,4 +10,7 @@ export const APP_APIS = {
 
   // category
   category: `${environment.apiUrl}categories`,
+
+  // cart
+  cart: `${environment.apiUrl}cart`,
 };

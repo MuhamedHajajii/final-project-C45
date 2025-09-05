@@ -24,7 +24,17 @@
       </p>
     </div>
     <div class="flex items-center gap-4">
-      <button class="btn-main !mt-0 flex-1 items-center">Add To Cart</button>
+      <button
+        [disabled]="isLoading"
+        (click)="addProduct(prod.id)"
+        class="btn-main disabled:!bg-green-800 disabled:!cursor-auto !mt-0 flex-1 items-center relative"
+      >
+        Add To Cart @if(isLoading) {
+        <div class="absolute top-1/2 -translate-y-1/2 end-0 me-5">
+          <i class="fas fa-spinner fa-spin"></i>
+        </div>
+        }
+      </button>
       <span
         class="text-gray-400 mr-3 inline-flex items-center lg:ml-auto md:ml-0 ml-auto leading-none text-sm pr-3 py-1 border-r-2 border-gray-200"
       >

@@ -1,1 +1,53 @@
-<p>brands-page works!</p>
+<!-- <section class="my-4 text-6xl">
+  <p class="mb-6">{{ "brands page works!" | titlecase }}</p>
+  <p class="mb-6">{{ "brands page works!" | lowercase }}</p>
+  <p class="mb-6">{{ "brands page works!" | uppercase }}</p>
+</section>
+<section class="my-4 text-6xl">
+  <p class="mb-6">{{ date | date : "full" }}</p>
+  <p class="mb-6">{{ date | date : "short" }}</p>
+  <p class="mb-6">{{ date | date : "medium" }}</p>
+  <p class="mb-6">{{ date | date : "MM/yy/dd hh:mm a" }}</p>
+</section>
+<hr />
+<section class="my-4 text-6xl">
+  <p class="mb-6">{{ 50 / 100 | percent }}</p>
+  <p class="mb-6">{{ 50 | number : "5.2-6" }}</p>
+</section> -->
+<!-- 
+<section class="my-4 text-6xl">
+  @for (data of dummyData; track $index) { @for (item of data | keyvalue; track
+  $index) {
+  <p class="mb-6">{{ item.key }} : {{ item.value }}</p>
+  } }
+</section> -->
+<section class="my-4 text-6xl">
+  @for (employee of employees ; track $index) {
+
+  <p class="mb-6">name: {{ employee.name }}</p>
+  <p class="mb-6">age: {{ employee.age }}</p>
+  <p class="mb-6">salary: {{ employee.age }}</p>
+
+  <button>
+    {{
+      employee.age
+        | i18nPlural: {
+          "=0":"zero messages",
+          "=1":"one message",
+          "other":"messages",
+        }
+    }}
+  </button>
+  <hr />
+  }
+</section>
+
+<!-- 
+>> 0 messages
+>> 1 message
+>> 10 messages
+
+>> invite him
+>> invite here
+
+-->

@@ -1,18 +1,18 @@
+import { provideHttpClient, withFetch } from "@angular/common/http";
 import {
   ApplicationConfig,
   importProvidersFrom,
   provideBrowserGlobalErrorListeners,
   provideZoneChangeDetection,
 } from "@angular/core";
-import { provideRouter, withHashLocation } from "@angular/router";
-import { CarouselModule } from "ngx-owl-carousel-o";
-import { routes } from "./app.routes";
 import {
   provideClientHydration,
   withEventReplay,
 } from "@angular/platform-browser";
-import { provideHttpClient, withFetch } from "@angular/common/http";
-import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
+import { provideAnimations } from "@angular/platform-browser/animations";
+import { provideRouter } from "@angular/router";
+import { routes } from "./app.routes";
+import { provideToastr } from "ngx-toastr";
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -21,6 +21,10 @@ export const appConfig: ApplicationConfig = {
     provideRouter(routes),
     provideClientHydration(withEventReplay()),
     provideHttpClient(withFetch()),
-    importProvidersFrom(BrowserAnimationsModule),
+    provideAnimations(),
+    provideToastr({
+      preventDuplicates: true,
+    }),
+    // importProvidersFrom(BrowserAnimationsModule),
   ],
 };

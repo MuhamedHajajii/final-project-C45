@@ -32,6 +32,9 @@ export class ProductsDetails {
    */
 
   constructor() {
+    if (this.activatedRoute.snapshot.paramMap.get("slug")) {
+    }
+
     this.activatedRoute.paramMap.subscribe({
       next: (response) => {
         this.productId = response.get("productId") as string;

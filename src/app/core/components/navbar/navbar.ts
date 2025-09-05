@@ -1,6 +1,7 @@
-import { Component, inject, Input } from "@angular/core";
+import { Component, HostListener, inject, Input } from "@angular/core";
 import { RouterLink, RouterLinkActive } from "@angular/router";
 import { AuthServices } from "../../../features/auth/services/auth.services";
+import { ToastrService } from "ngx-toastr";
 
 @Component({
   selector: "app-navbar",
