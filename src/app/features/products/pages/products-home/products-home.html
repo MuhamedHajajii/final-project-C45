@@ -33,7 +33,10 @@
 
 <div class="flex justify-center my-10">
   @defer () {
-  <pagination-controls (pageChange)="pageChanged($event)" />
+  <pagination-controls
+    [routerLink]="['/products', page]"
+    (pageChange)="pageChanged($event)"
+  />
   }
 </div>
 

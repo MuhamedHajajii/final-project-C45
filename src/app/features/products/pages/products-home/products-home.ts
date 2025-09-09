@@ -1,5 +1,5 @@
 import { Component, inject, OnInit } from "@angular/core";
-import { ActivatedRoute, Router } from "@angular/router";
+import { ActivatedRoute, Router, RouterLink } from "@angular/router";
 import { NgxPaginationModule } from "ngx-pagination";
 import { HeaderTitle } from "../../../../shared/components/header-title/header-title";
 import { LoadingSpinner } from "../../../../shared/components/loading-spinner/loading-spinner";
@@ -16,6 +16,7 @@ import { ProductsServices } from "../../services/products.services";
     ProductsCard,
     NgxPaginationModule,
     ProductsSearchPipe,
+    RouterLink,
   ],
   templateUrl: "./products-home.html",
   styleUrl: "./products-home.css",

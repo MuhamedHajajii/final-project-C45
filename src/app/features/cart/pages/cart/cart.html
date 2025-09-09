@@ -7,6 +7,7 @@
       Shopping Cart
     </h2>
 
+    @if (cartData.products.length) {
     <div>
       <h3 class="my-5 font-bold italic">
         Total Cart Items : {{ totalCartItems }}
@@ -41,6 +42,8 @@
                 >
                   <div class="flex items-center">
                     <button
+                      [disabled]="isLoading"
+                      (click)="updateProduct(prod, 'decrement')"
                       type="button"
                       class="inline-flex h-5 w-5 shrink-0 items-center justify-center rounded-md border border-gray-300 bg-gray-100 hover:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-gray-100"
                     >
@@ -64,9 +67,11 @@
                       type="text"
                       class="w-10 shrink-0 border-0 bg-transparent text-center text-sm font-medium text-gray-900 focus:outline-none focus:ring-0"
                       placeholder=""
-                      value="2"
+                      [value]="prod.count"
                     />
                     <button
+                      [disabled]="isLoading"
+                      (click)="updateProduct(prod, 'increment')"
                       type="button"
                       class="inline-flex h-5 w-5 shrink-0 items-center justify-center rounded-md border border-gray-300 bg-gray-100 hover:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-gray-100"
                     >
@@ -129,8 +134,9 @@
                     </button>
 
                     <button
+                      (click)="deleteProduct(prod)"
                       type="button"
-                      class="inline-flex items-center text-sm font-medium text-red-600 hover:underline"
+                      class="inline-flex cursor-pointer items-center text-sm font-medium text-red-600 hover:underline"
                     >
                       <svg
                         class="me-1.5 h-5 w-5"
@@ -211,7 +217,26 @@
           </div>
         </div>
       </div>
+
+      <div>
+        <button
+          (click)="clearCart()"
+          class="inline-flex items-center text-white bg-red-500 border-0 py-2 px-6 focus:outline-none hover:bg-red-600 rounded text-lg"
+        >
+          Clear Cart <i class="fas fa-trash mx-4"></i>
+        </button>
+      </div>
     </div>
+    } @else {
+    <div
+      class="bg-green-100 my-5 border-l-4 border-green-500 text-green-700 p-4"
+      role="alert"
+    >
+      <p class="font-bold">Your Cart Is Empty</p>
+      <p class="my-5">Add Products</p>
+      <a routerLink="/products" class="btn-main px-4 py-3"> Products Page </a>
+    </div>
+    }
   </div>
 </section>
 }

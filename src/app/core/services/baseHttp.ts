@@ -25,11 +25,12 @@ export abstract class BaseHttp {
     });
   }
 
-  protected delete<T>(url: string, data: {}, headers?: {}) {
+  protected delete<T>(url: string, headers?: {}) {
     return this.http.delete<T>(url, {
       headers: headers,
     });
   }
+
   protected put<T>(url: string, data: {}, headers?: {}) {
     return this.http.put<T>(url, data, {
       headers: headers,

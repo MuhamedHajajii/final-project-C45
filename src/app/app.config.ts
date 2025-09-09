@@ -1,4 +1,8 @@
-import { provideHttpClient, withFetch } from "@angular/common/http";
+import {
+  provideHttpClient,
+  withFetch,
+  withInterceptors,
+} from "@angular/common/http";
 import {
   ApplicationConfig,
   importProvidersFrom,
@@ -13,6 +17,9 @@ import { provideAnimations } from "@angular/platform-browser/animations";
 import { provideRouter } from "@angular/router";
 import { routes } from "./app.routes";
 import { provideToastr } from "ngx-toastr";
+import { tokenInterceptor } from "./core/interceptors/token-interceptor";
+import { errorsInterceptor } from "./core/interceptors/errors-interceptor";
+import { loadingInterceptor } from "./core/interceptors/loading-interceptor";
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -20,7 +27,14 @@ export const appConfig: ApplicationConfig = {
     provideZoneChangeDetection({ eventCoalescing: true }),
     provideRouter(routes),
     provideClientHydration(withEventReplay()),
-    provideHttpClient(withFetch()),
+    provideHttpClient(
+      withFetch(),
+      withInterceptors([
+        tokenInterceptor,
+        errorsInterceptor,
+        loadingInterceptor,
+      ])
+    ),
     provideAnimations(),
     provideToastr({
       preventDuplicates: true,

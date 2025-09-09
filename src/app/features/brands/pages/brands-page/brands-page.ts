@@ -14,7 +14,7 @@ import { Component } from "@angular/core";
 
 @Component({
   selector: "app-brands-page",
-  imports: [SlicePipe, I18nSelectPipe, I18nPluralPipe],
+  imports: [I18nPluralPipe],
   templateUrl: "./brands-page.html",
   styleUrl: "./brands-page.css",
 })
