@@ -7,6 +7,21 @@ import { ProductsCard } from "../../../../shared/components/products-card/produc
 import { ProductsSearchPipe } from "../../../../shared/pipes/products-search-pipe";
 import { IProductsData } from "../../interfaces/IGetAllProducts";
 import { ProductsServices } from "../../services/products.services";
+import {
+  delay,
+  every,
+  filter,
+  find,
+  fromEvent,
+  interval,
+  map,
+  of,
+  Subject,
+  Subscription,
+  take,
+  takeUntil,
+  timer,
+} from "rxjs";
 
 @Component({
   selector: "app-products-home",
@@ -41,13 +56,46 @@ export class ProductsHome implements OnInit {
     );
   }
 
+  // Creation Operators
+
+  // from
+  // of
+
+  dataNew = of(1, 2, 3, 4, 5, 6, 7, 8, 9);
+
+  event$ = fromEvent(document, "click");
+
+  data = interval(500);
+
+  subject$ = new Subject<void>();
+
+  timer = timer(4000, 2000);
+
   ngOnInit(): void {
+    this.timer.pipe(takeUntil(this.subject$)).subscribe((response) => {
+      console.log(response);
+      console.log("Hello World");
+    });
+
+    this.dataNew
+      .pipe(
+        every((response) => {
+          return response > 0;
+        })
+      )
+      .subscribe({
+        next: (response) => {
+          console.log(response);
+        },
+      });
+
     this.getAllProducts();
   }
 
   getAllProducts(): void {
     this.productsServices
       .getAllProducts({ page: this.page, limit: 50 })
+      .pipe(takeUntil(this.subject$))
       .subscribe({
         next: (response) => {
           console.log(response);
@@ -68,5 +116,10 @@ export class ProductsHome implements OnInit {
       },
     });
     this.getAllProducts();
+  }
+
+  ngOnDestroy(): void {
+    this.subject$.next();
+    this.subject$.complete();
   }
 }

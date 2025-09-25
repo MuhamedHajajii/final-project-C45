@@ -9,7 +9,7 @@ export const routes: Routes = [
   {
     path: "",
     component: AuthLayout,
-    canActivate: [userGuard],
+    // canActivate: [userGuard],
     loadChildren: () =>
       import("./features/auth/auth.routes").then((m) => m.AUTH_ROUTES),
   },
@@ -20,7 +20,7 @@ export const routes: Routes = [
   {
     path: "",
     component: MainLayout,
-    canActivate: [authGuard],
+    // canActivate: [authGuard],
     children: [
       {
         path: "home",
