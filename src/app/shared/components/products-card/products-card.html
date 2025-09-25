@@ -1,11 +1,16 @@
 <div
   class="h-full border-2 border-gray-200 border-opacity-60 rounded-lg overflow-hidden flex flex-col"
 >
-  <img
-    class="md:h-[350px] w-full object-contain object-center"
-    [src]="prod.imageCover"
-    [alt]="prod.title"
-  />
+  <div class="md:h-[350px] w-full relative overflow-hidden">
+    <img
+      class="w-full h-full object-contain object-center"
+      [src]="prod.imageCover"
+      appImagePlaceHolder
+      [alt]="prod.title"
+      loading="lazy"
+    />
+  </div>
+
   <div class="p-6 flex flex-col justify-between flex-1">
     <div>
       <h2

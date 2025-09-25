@@ -1,4 +1,4 @@
-import { Component, inject, OnInit } from "@angular/core";
+import { Component, inject, OnInit, signal, Signal } from "@angular/core";
 import { ActivatedRoute, Router, RouterLink } from "@angular/router";
 import { NgxPaginationModule } from "ngx-pagination";
 import { HeaderTitle } from "../../../../shared/components/header-title/header-title";
@@ -28,7 +28,7 @@ export class ProductsHome implements OnInit {
   private readonly activatedRoute = inject(ActivatedRoute);
 
   // Variables
-  allProducts!: IProductsData[] | undefined;
+  allProducts = signal<IProductsData[] | undefined>(undefined);
   searchText: string = "";
 
   page: number = 1;
@@ -51,7 +51,7 @@ export class ProductsHome implements OnInit {
       .subscribe({
         next: (response) => {
           console.log(response);
-          this.allProducts = response.data;
+          this.allProducts.set(response.data);
           this.totalItems = response.results;
           this.itemsPerPage = response.metadata.limit;
         },
@@ -61,7 +61,7 @@ export class ProductsHome implements OnInit {
   pageChanged(pageNumber: number) {
     console.log(pageNumber);
     this.page = pageNumber;
-    this.allProducts = undefined;
+    this.allProducts.set(undefined);
     this.router.navigate([], {
       queryParams: {
         page: this.page,

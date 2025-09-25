@@ -3,10 +3,11 @@ import { Categories } from "../../services/categories";
 import { ICategoriesData } from "../../interfaces/IGetAllCategories";
 import { HeaderTitle } from "../../../../shared/components/header-title/header-title";
 import { LoadingSpinner } from "../../../../shared/components/loading-spinner/loading-spinner";
+import { ImagePlaceHolder } from "../../../../shared/directives/image-place-holder";
 
 @Component({
   selector: "app-categories-page",
-  imports: [HeaderTitle, LoadingSpinner],
+  imports: [HeaderTitle, LoadingSpinner, ImagePlaceHolder],
   templateUrl: "./categories-page.html",
   styleUrl: "./categories-page.css",
 })

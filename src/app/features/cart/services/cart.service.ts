@@ -1,18 +1,21 @@
-import { Injectable } from "@angular/core";
+import { Injectable, signal } from "@angular/core";
 import { BaseHttp } from "../../../core/services/baseHttp";
 import { APP_APIS } from "../../../core/constants/appApis";
 import { IAddToCartResponse } from "../interfaces/IAddToCartResponse";
 import { IGetUserCartResponse } from "../interfaces/IGetUserCartResponse";
 import { IUpdateProductResponse } from "../interfaces/IUpdateProductResponse";
 import { IDeleteProductResponse } from "../interfaces/IDeleteProductResponse";
+import { BehaviorSubject } from "rxjs";
 
 @Injectable({
   providedIn: "root",
 })
 export class CartService extends BaseHttp {
-  // CRUD
+  // cartCount = new BehaviorSubject<undefined | number>(undefined);
 
-  // Create
+  // signal
+  cartCount = signal<number | undefined>(undefined);
+
   addProduct(productId: string) {
     return this.post<IAddToCartResponse>(APP_APIS.cart, {
       productId: productId,

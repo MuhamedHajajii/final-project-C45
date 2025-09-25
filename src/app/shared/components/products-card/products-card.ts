@@ -4,10 +4,11 @@ import { IProductsData } from "../../../features/products/interfaces/IGetAllProd
 import { RouterLink } from "@angular/router";
 import { CartService } from "../../../features/cart/services/cart.service";
 import { ToastrService } from "ngx-toastr";
+import { ImagePlaceHolder } from "../../directives/image-place-holder";
 
 @Component({
   selector: "app-products-card",
-  imports: [RouterLink],
+  imports: [RouterLink, ImagePlaceHolder],
   templateUrl: "./products-card.html",
   styleUrl: "./products-card.css",
 })
@@ -29,7 +30,13 @@ export class ProductsCard {
         console.log(response);
         this.isLoading = false;
         this.toastrService.success(response.message);
+
+        this.cartService.cartCount.set(response.numOfCartItems);
       },
     });
+  }
+
+  imageLoaded(event: Event): void {
+    (event.target as HTMLElement).nextElementSibling?.remove();
   }
 }
