@@ -1,31 +1,44 @@
-import { Component, inject } from "@angular/core";
-import { FlowBiteServices } from "./core/services/flowbite/flow-bite.services";
-import { from, interval, Observable, of } from "rxjs";
-import { Navbar } from "./core/components/navbar/navbar";
-import { Footer } from "./core/components/footer/footer";
-import { RouterOutlet } from "@angular/router";
+import {
+  FacebookLoginProvider,
+  GoogleLoginProvider,
+  GoogleSigninButtonDirective,
+  SocialAuthService,
+} from '@abacritt/angularx-social-login';
+import { Component } from '@angular/core';
+import { RouterOutlet } from '@angular/router';
+import { NgxSpinnerModule } from 'ngx-spinner';
+import { Footer } from './core/components/footer/footer';
+import { ImagePlaceHolder } from './shared/directives/image-place-holder';
 
 @Component({
-  selector: "app-root",
-  imports: [RouterOutlet, Footer],
-  templateUrl: "./app.html",
-  styleUrl: "./app.css",
+  selector: 'app-root',
+  imports: [
+    RouterOutlet,
+    Footer,
+    NgxSpinnerModule,
+    GoogleSigninButtonDirective,
+  ],
+  templateUrl: './app.html',
+  styleUrl: './app.css',
 })
-export class App {}
+export class App {
+  constructor(private authService: SocialAuthService) {}
 
-// prom = new Promise((resolve, reject) => {
-//   resolve("1- Hello Resolved");
+  ngOnInit(): void {}
 
-//    reject("2- Hello Rejected");
-// });
+  signInWithGoogle(): void {
+    this.authService
+      .signIn(GoogleLoginProvider.PROVIDER_ID)
+      .then((response) => {
+        console.log(response);
+      });
+  }
 
-// this.prom
-//     .then((response) => {
-//       console.log(response);
-//     })
-//     .catch((response) => {
-//       console.log(response);
-//     })
-//     .finally(() => {
-//       console.log("Finally");
-//     });
+  signInWithFB(): void {
+    this.authService.signIn(FacebookLoginProvider.PROVIDER_ID);
+  }
+
+  signOut(): void {
+    this.authService.signOut();
+  }
+}

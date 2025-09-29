@@ -1,27 +1,14 @@
-import { Component, inject, OnInit, signal, Signal } from "@angular/core";
+import { Component, inject, OnInit, signal } from "@angular/core";
 import { ActivatedRoute, Router, RouterLink } from "@angular/router";
 import { NgxPaginationModule } from "ngx-pagination";
+import { every, Subject, Subscription, take, takeUntil } from "rxjs";
 import { HeaderTitle } from "../../../../shared/components/header-title/header-title";
 import { LoadingSpinner } from "../../../../shared/components/loading-spinner/loading-spinner";
 import { ProductsCard } from "../../../../shared/components/products-card/products-card";
 import { ProductsSearchPipe } from "../../../../shared/pipes/products-search-pipe";
 import { IProductsData } from "../../interfaces/IGetAllProducts";
 import { ProductsServices } from "../../services/products.services";
-import {
-  delay,
-  every,
-  filter,
-  find,
-  fromEvent,
-  interval,
-  map,
-  of,
-  Subject,
-  Subscription,
-  take,
-  takeUntil,
-  timer,
-} from "rxjs";
+import { Categories } from "../../../categories/services/categories";
 
 @Component({
   selector: "app-products-home",
@@ -39,6 +26,7 @@ import {
 export class ProductsHome implements OnInit {
   // Injected Services
   private readonly productsServices = inject(ProductsServices);
+  private readonly categories = inject(Categories);
   private readonly router = inject(Router);
   private readonly activatedRoute = inject(ActivatedRoute);
 
@@ -56,52 +44,39 @@ export class ProductsHome implements OnInit {
     );
   }
 
-  // Creation Operators
+  destroy$ = new Subject<void>();
 
-  // from
-  // of
-
-  dataNew = of(1, 2, 3, 4, 5, 6, 7, 8, 9);
-
-  event$ = fromEvent(document, "click");
-
-  data = interval(500);
-
-  subject$ = new Subject<void>();
-
-  timer = timer(4000, 2000);
+  sub1$!: Subscription;
+  sub2$!: Subscription;
 
   ngOnInit(): void {
-    this.timer.pipe(takeUntil(this.subject$)).subscribe((response) => {
-      console.log(response);
-      console.log("Hello World");
-    });
-
-    this.dataNew
-      .pipe(
-        every((response) => {
-          return response > 0;
-        })
-      )
-      .subscribe({
-        next: (response) => {
-          console.log(response);
-        },
-      });
-
     this.getAllProducts();
+    this.getAllCategories();
   }
 
   getAllProducts(): void {
-    this.productsServices
+    this.sub1$ = this.productsServices
       .getAllProducts({ page: this.page, limit: 50 })
-      .pipe(takeUntil(this.subject$))
+
+      .pipe(takeUntil(this.destroy$))
+
       .subscribe({
         next: (response) => {
           console.log(response);
           this.allProducts.set(response.data);
           this.totalItems = response.results;
           this.itemsPerPage = response.metadata.limit;
+        },
+      });
+  }
+
+  getAllCategories() {
+    this.sub2$ = this.categories
+      .getAllCategories()
+      .pipe(takeUntil(this.destroy$))
+      .subscribe({
+        next: (response) => {
+          console.log(response);
         },
       });
   }
@@ -119,7 +94,7 @@ export class ProductsHome implements OnInit {
   }
 
   ngOnDestroy(): void {
-    this.subject$.next();
-    this.subject$.complete();
+    this.destroy$.next();
+    this.destroy$.complete();
   }
 }
