@@ -33,7 +33,7 @@ import {
   GoogleLoginProvider,
   FacebookLoginProvider,
 } from '@abacritt/angularx-social-login';
-import { environment } from '../environments/environments.local';
+import { environment } from '../environments/environments';
 
 export const appConfig: ApplicationConfig = {
   providers: [
