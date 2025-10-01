@@ -9,6 +9,7 @@ import { RouterOutlet } from '@angular/router';
 import { NgxSpinnerModule } from 'ngx-spinner';
 import { Footer } from './core/components/footer/footer';
 import { ImagePlaceHolder } from './shared/directives/image-place-holder';
+declare const google: any;
 
 @Component({
   selector: 'app-root',
@@ -32,6 +33,7 @@ export class App implements OnInit {
         console.log('User signed out');
       }
     });
+    this.authService.signIn(GoogleLoginProvider.PROVIDER_ID);
   }
 
   signInWithFB(): void {
@@ -40,5 +42,9 @@ export class App implements OnInit {
 
   signOut(): void {
     this.authService.signOut();
+  }
+
+  ngAfterViewInit(): void {
+    console.log(google);
   }
 }
