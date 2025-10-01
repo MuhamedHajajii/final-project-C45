@@ -4,7 +4,7 @@ import {
   GoogleSigninButtonDirective,
   SocialAuthService,
 } from '@abacritt/angularx-social-login';
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { NgxSpinnerModule } from 'ngx-spinner';
 import { Footer } from './core/components/footer/footer';
@@ -21,17 +21,17 @@ import { ImagePlaceHolder } from './shared/directives/image-place-holder';
   templateUrl: './app.html',
   styleUrl: './app.css',
 })
-export class App {
+export class App implements OnInit {
   constructor(private authService: SocialAuthService) {}
 
-  ngOnInit(): void {}
-
-  signInWithGoogle(): void {
-    this.authService
-      .signIn(GoogleLoginProvider.PROVIDER_ID)
-      .then((response) => {
-        console.log(response);
-      });
+  ngOnInit(): void {
+    this.authService.authState.subscribe((user) => {
+      if (user) {
+        console.log('User signed in:', user);
+      } else {
+        console.log('User signed out');
+      }
+    });
   }
 
   signInWithFB(): void {

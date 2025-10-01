@@ -64,7 +64,7 @@ export const appConfig: ApplicationConfig = {
             id: GoogleLoginProvider.PROVIDER_ID,
             provider: new GoogleLoginProvider(environment.googleClientId, {
               oneTapEnabled: false,
-              ux_mode: 'redirect',
+              prompt: 'consent',
             }),
           },
         ],
